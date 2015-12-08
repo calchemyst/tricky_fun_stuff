@@ -3,14 +3,14 @@
  */
 public class TriangleGenerator {
     int index;
-    int currVal;
+    long currVal;
 
     public TriangleGenerator() {
         index = 0;
         currVal = 0;
     }
 
-    public int next() {
+    public long next() {
         index++;
         currVal += index;
         return currVal;
