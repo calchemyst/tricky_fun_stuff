@@ -12,13 +12,13 @@ import java.util.Set;
 public class Peon {
     private final String name;
     private Set<String> validCommands;
-    private String currLocation;
+    private Location currLocation;
     private int health;
     private int money;
 
     public Peon(String name, int health, int money, String currLocation) {
         this.name = name;
-        this.currLocation = currLocation;
+        this.currLocation = PeonUtils.getLocationFromName(currLocation);
         this.validCommands = Sets.newHashSet("west", "east", "north",
                 "south", "sleep", "location", "health", "eat");
         this.health = health;
@@ -30,13 +30,15 @@ public class Peon {
     }
 
     public String location() {
-        return currLocation;
+        return currLocation.name();
     }
 
     public String go(String direction) {
-        String newLocation = PeonUtils.move(direction, currLocation);
+        String newLocation = PeonUtils.move(direction, currLocation.name());
         if (!Strings.isNullOrEmpty(newLocation)) {
-            currLocation = newLocation;
+            validCommands.removeAll(currLocation.commands());
+            currLocation = PeonUtils.getLocationFromName(newLocation);
+            validCommands.addAll(currLocation.commands());
             return "Couldn't have gotten there faster. You are now in " + currLocation;
         } else {
             return "You can't go that way, silly peon!";
