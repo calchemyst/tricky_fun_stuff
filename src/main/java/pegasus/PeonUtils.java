@@ -64,6 +64,29 @@ public class PeonUtils {
         }
     }
 
+    public static Location getLocationFromName(String name) {
+        Location location = null;
+        try {
+            Statement stmt = PeonUtils.getSqlConnection().createStatement();
+            String sqlQuery = "select type from rooms where name = \'" + name + "\';";
+            ResultSet results = stmt.executeQuery(sqlQuery);
+            String type = "";
+            if (results.next()) {
+                type = results.getString("type");
+                switch (type) {
+                    case "tavern" :
+                        location = new Tavern(name);
+                    case "farm" :
+                        location = new Farm(name);
+                }
+            }
+            stmt.close();
+        } catch ( SQLException e) {
+            throw Throwables.propagate(e);
+        }
+        return location;
+    }
+
     public static String move(String direction, String locationName) {
         try {
             Statement stmt = PeonUtils.getSqlConnection().createStatement();

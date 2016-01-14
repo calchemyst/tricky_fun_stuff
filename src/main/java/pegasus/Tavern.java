@@ -3,7 +3,7 @@ package pegasus;
 /**
  * Created by annafuller on 1/13/16.
  */
-public final class Tavern {
+public final class Tavern implements  Location {
     private final String name;
     private int numBeers;
     private int numWhiskeys;

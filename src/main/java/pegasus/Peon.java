@@ -1,12 +1,17 @@
 package pegasus;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by annafuller on 1/6/16.
  */
 public class Peon {
     private final String name;
+    private Set<String> validCommands;
     private String currLocation;
     private int health;
     private int money;
@@ -14,6 +19,8 @@ public class Peon {
     public Peon(String name, int health, int money, String currLocation) {
         this.name = name;
         this.currLocation = currLocation;
+        this.validCommands = Sets.newHashSet("west", "east", "north",
+                "south", "sleep", "location", "health", "eat");
         this.health = health;
         this.money = money;
     }
@@ -26,10 +33,6 @@ public class Peon {
         return currLocation;
     }
 
-    public void kill(String name) {
-
-    }
-
     public String go(String direction) {
         String newLocation = PeonUtils.move(direction, currLocation);
         if (!Strings.isNullOrEmpty(newLocation)) {
@@ -38,10 +41,6 @@ public class Peon {
         } else {
             return "You can't go that way, silly peon!";
         }
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String eat() {
@@ -55,7 +54,12 @@ public class Peon {
     }
 
     public String help() {
-        return "Valid peon commands are eat, health, sleep, go, location";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Valid peon commands are: ");
+        for (String s : validCommands) {
+            sb.append(s + " ");
+        }
+        return sb.toString();
     }
 
 }
