@@ -1,6 +1,11 @@
+package project_euler;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static java.math.BigInteger.*;
 
 /**
  * Created by annafuller on 12/5/15.
@@ -59,4 +64,20 @@ public class EulerUtils {
         }
         return true;
     }
+
+    public static int[] getDigits(int number, int numDigits, int radix) {
+        List<Integer> numbers = new ArrayList<>();
+        int i = radix;
+        while (number > 0) {
+            int num = number % i;
+            numbers.add(num);
+            number = (number - num)/radix;
+        }
+        int[] digits = new int[numDigits];
+        for (int j = 0; j < numDigits ; j++ ) {
+            digits[j] = numbers.size() - j;
+        }
+        return digits;
+    }
+
 }

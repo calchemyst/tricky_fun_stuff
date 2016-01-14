@@ -1,3 +1,5 @@
+package project_euler;
+
 import jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType;
 
 import java.math.BigInteger;

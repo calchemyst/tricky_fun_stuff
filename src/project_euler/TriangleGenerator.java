@@ -1,3 +1,5 @@
+package project_euler;
+
 /**
  * Created by annafuller on 12/7/15.
  */

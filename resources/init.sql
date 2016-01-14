@@ -1,0 +1,3 @@
+CREATE TABLE TABLE1(ID INT PRIMARY KEY, NAME VARCHAR(255));
+INSERT INTO table1 ( user ) VALUES ( 'Anna' ));
+INSERT INTO table1 ( user ) VALUES ( 'Fuller' ));

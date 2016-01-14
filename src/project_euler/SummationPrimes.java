@@ -1,3 +1,5 @@
+package project_euler;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

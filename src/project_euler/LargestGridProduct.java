@@ -1,3 +1,5 @@
+package project_euler;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,7 +8,8 @@ import java.util.List;
  */
 public class LargestGridProduct {
     public static int gridSize = 20;
-    public static String [] numberGrid = { "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08 ",
+    public static String[] numberGrid = {
+            "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08 ",
             "49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00 ",
             "81 49 31 73 55 79 14 29 93 71 40 67 53 88 30 03 49 13 36 65 ",
             "52 70 95 23 04 60 11 42 69 24 68 56 01 32 56 71 37 02 36 91 ",
@@ -25,27 +28,27 @@ public class LargestGridProduct {
             "04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36 ",
             "20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16 ",
             "20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54 ",
-            "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48 "};
+            "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48 "
+    };
 
     public static void main(String[] args) {
         int[][] numbers = makeMatrix(numberGrid);
-        long rl_diagonal = greatestRLDiagonalProduct(numbers);
-        long lr_diagonal = greatestLRDiagonalProduct(numbers);
         long horizontal = greatestHorizontalProduct(numbers);
         long vertical = greatestVerticalProduct(numbers);
-        System.out.println("horizontal: " + horizontal);
-        System.out.println("vertical: " + vertical);
-        System.out.println("rl_diagonal: " + rl_diagonal);
-        System.out.println("lr_diagonal: " + lr_diagonal);
+        long lr_diagonal = greatestLRDiagonal(numbers);
+        long rl_diagonal = greatestRLDiagonal(numbers);
+        System.out.println(horizontal);
+        System.out.println(vertical);
+        System.out.println(lr_diagonal);
+        System.out.println(rl_diagonal);
     }
 
-
-    private static int[][] makeMatrix(String [] grid) {
+    private static int[][] makeMatrix(String[] grid) {
         int[][] numbers = new int[grid.length][grid.length];
         int splitGridPos = 0;
-        int i=0;
+        int i = 0;
         for (String row : grid) {
-             String[] cols = row.split("\\s+");
+            String[] cols = row.split("\\s+");
             int j = 0;
             for (String c : cols) {
                 numbers[i][j++] = Integer.valueOf(c);
@@ -56,74 +59,50 @@ public class LargestGridProduct {
         return numbers;
     }
 
-    /**
-     * Correct!
-     */
-    private static long greatestLRDiagonalProduct(int[][] grid) {
-        int greatest = 1;
+    private static long greatestRLDiagonal(int[][] grid) {
+        long greatest = 1;
         int row = 0;
-        while (row < grid.length -1) {
-            for (int i = 0; i < grid.length - 1; i++) {
-                List<Integer> numbers = new ArrayList<>();
-                int curr_row = row;
-                int curr_col = 0;
-                if (i > 0 && row > 0) {
-                    numbers.add(grid[0][i]);
-                    numbers.add(grid[row][0]);
-                }
-                while (curr_col < row) {
-                    curr_row--;
-                    curr_col++;
-                    numbers.add(grid[curr_row][curr_col]);
-                }
-                if (numbers.size() == 4) {
-                    int prod = 1;
-                    for (int num : numbers) {
-                        prod *= num;
+        int col = 0;
+        while (row + 3 <= grid.length) {
+            if (col >= 3 && col < grid.length) {
+                for (int i = col; i + 3 <= grid.length; i++) {
+                    long product = 1;
+                    for (int j = 0; j <= 3; j++) {
+                        product *= grid[row + j][col - j];
                     }
-                    if (prod > greatest) {
-                        greatest = prod;
+                    if (product > greatest) {
+                        greatest = product;
                     }
+                    col++;
                 }
-                numbers = new ArrayList<>();
                 row++;
             }
+            col++;
         }
         return greatest;
     }
 
-    /**
-     * Working on it.
-     */
-    private static long greatestRLDiagonalProduct(int[][] grid) {
-        int greatest = 1;
-        int row = 0;
-        while (row < grid.length -1) {
-            for (int i = grid.length -1; i > 0; i--) {
-                List<Integer> numbers = new ArrayList<>();
-                int curr_row = row;
-                int curr_col = i;
-                if (i < grid.length -1 && row > 0) {
-                    numbers.add(grid[row][grid.length -1]);
-                    numbers.add(grid[0][i]);
-                }
-                while (curr_row > 0) {
-                    curr_row--;
-                    curr_col++;
-                    numbers.add(grid[curr_row][curr_col]);
-                }
-                if (numbers.size() == 4) {
-                    int prod = 1;
-                    for (int num : numbers) {
-                        prod *= num;
+
+
+    private static long greatestLRDiagonal(int[][] grid) {
+        long greatest = 1;
+        int row = grid.length -1;
+        int col = 0;
+        while (row - 3 >= 0) {
+            if (col >= 3 && col < grid.length) {
+                for (int i = col; i + 3 < grid.length; i++) {
+                    long product = 1;
+                    for (int j = 0; j <= 3; j++) {
+                        product *= grid[row - j ][col + j];
                     }
-                    if (prod > greatest) {
-                        greatest = prod;
+                    if (product > greatest) {
+                        greatest = product;
                     }
+                    col++;
                 }
-                numbers = new ArrayList<>();
-                row++;
+                row--;
             }
+            col++;
         }
         return greatest;
     }
@@ -134,7 +113,7 @@ public class LargestGridProduct {
         while (row < grid.length) {
             for (int i = 0; i < grid.length; i++) {
                 if (i + 4 < grid.length) {
-                    int product = grid[row][i] * grid[row][i+1] * grid[row][i+2] * grid[row][i +3];
+                    int product = grid[row][i] * grid[row][i + 1] * grid[row][i + 2] * grid[row][i + 3];
                     if (product > greatest) {
                         greatest = product;
                     }
@@ -153,7 +132,7 @@ public class LargestGridProduct {
         while (col < grid.length) {
             for (int i = 0; i < grid.length; i++) {
                 if (i + 4 < grid.length) {
-                    int product = grid[i][col] * grid[i+1][col] * grid[i+2][col] * grid[i+3][col];
+                    int product = grid[i][col] * grid[i + 1][col] * grid[i + 2][col] * grid[i + 3][col];
                     if (product > greatest) {
                         greatest = product;
                     }

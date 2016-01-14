@@ -1,17 +1,17 @@
-import java.util.*;
+package project_euler;
 
 /**
  * Created by annafuller on 12/6/15.
  */
 public class TriangleNumber {
-    private static boolean [] primes = EulerUtils.findPrimes(1000);
+    private static boolean [] primes = EulerUtils.findPrimes(2000);
 
     public static void main(String[] args) {
         int numFactors = 1;
         TriangleGenerator tg = new TriangleGenerator();
         long start = System.currentTimeMillis();
         long triangle = 1;
-        while (numFactors < 1050) {
+        while (numFactors < 4000) {
             triangle = tg.next();
             numFactors = countDivisors(triangle);
         }
