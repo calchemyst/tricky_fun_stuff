@@ -78,6 +78,10 @@ public class PeonUtils {
                         location = new Tavern(name);
                     case "farm" :
                         location = new Farm(name);
+                    case "store":
+                        location = new Store(name);
+                    case "dungeon":
+                        location = new Dungeon(name);
                 }
             }
             stmt.close();
