@@ -46,7 +46,7 @@ public final class PegasusServer {
 
     private void initializeDb() {
         for (String sqlScript : sqlScripts) {
-            PeonUtils.executeSql(PeonUtils.getFileContents(this.getClass(), sqlScript));
+            PeonUtils.executeSqlFile(PeonUtils.getFileContents(this.getClass(), sqlScript));
         }
     }
 
@@ -67,7 +67,9 @@ public final class PegasusServer {
             Peon peonContext = new Peon(name, initialPeonHealth, initialPeonMoney, "home");
             out.println("Today is your lucky day, Peon " + name);
             out.println("You're at home. It's a stupid farm. Go somewhere today and explore!");
-            PeonUtils.executeSqlUpdate("INSERT INTO PEONS (name, health, money) values (" + name + ", 50, 20)");
+            String newPeonQuery = "INSERT INTO PEONS VALUES(\'" + name  + "\', 50, 20, 'home');";
+            System.out.println(newPeonQuery);
+            PeonUtils.executeSqlUpdate(newPeonQuery);
             while (isAlive) {
                 inputLine = in.readLine();
                 if (inputLine != null) {

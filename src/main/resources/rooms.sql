@@ -1,5 +1,5 @@
  INSERT INTO rooms ( name, type, north, south, east, west) VALUES (
- 'home', 'farm', 'general store', 'cave', 'town tavern', 'neighbor farm');
+ 'home', 'farm', 'general store', 'cave', 'tavern', 'neighbor farm');
  INSERT INTO rooms ( name, type, north, south, east, west)  VALUES ( 'neighbor farm',
  'farm', 'apothecary', '', 'home', '');
  INSERT INTO rooms ( name, type, north, south, east, west)  VALUES ( 'tavern', 'inn', '',

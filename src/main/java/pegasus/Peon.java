@@ -26,6 +26,10 @@ public class Peon {
         return currLocation;
     }
 
+    public void kill(String name) {
+
+    }
+
     public String go(String direction) {
         String newLocation = PeonUtils.move(direction, currLocation);
         if (!Strings.isNullOrEmpty(newLocation)) {

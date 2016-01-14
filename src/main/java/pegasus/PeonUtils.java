@@ -67,7 +67,7 @@ public class PeonUtils {
     public static String move(String direction, String locationName) {
         try {
             Statement stmt = PeonUtils.getSqlConnection().createStatement();
-            String sqlQuery = "select " + direction + " from rooms where name = " + locationName  + ";";
+            String sqlQuery = "select " + direction + " from rooms where name = \'" + locationName  + "\';";
             ResultSet results = stmt.executeQuery(sqlQuery);
             String location = "";
             if (results.next()) {
