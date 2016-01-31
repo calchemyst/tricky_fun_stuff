@@ -32,4 +32,13 @@ public final class Dungeon implements Location {
     public String type() {
         return type;
     }
+
+    @Override
+    public String handleCommmand(String input) {
+        if (input.equals("despair")) {
+            return "Good, good. The end is near. Despair more.";
+        } else {
+            return "Why aren't you full of despair in dungeon, dammit?";
+        }
+    }
 }

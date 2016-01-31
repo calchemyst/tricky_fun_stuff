@@ -34,4 +34,15 @@ public class Farm implements Location {
     public String type() {
         return type;
     }
+
+    @Override
+    public String handleCommmand(String input) {
+        if (input.equals("harvest")) {
+            return "Rough year. No plants to harvest yet. You will die soon.";
+        } else if (input.equals("plant")) {
+            return "No seeds. What to do...";
+        } else {
+            return "Why would you do that on a farm?";
+        }
+    }
 }

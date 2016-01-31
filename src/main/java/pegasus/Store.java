@@ -32,4 +32,17 @@ public final class Store implements Location {
     public String type() {
         return type;
     }
+
+    @Override
+    public String handleCommmand(String input) {
+        if (input.equals("buy")) {
+            return "Store is out of everything";
+        } else if (input.equals("sell")) {
+            return "We don't need no stinking stuff.";
+        } else if (input.equals("inventory")) {
+            return "No inventory for you....";
+        } else  {
+            return "How indecent!";
+        }
+    }
 }

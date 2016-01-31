@@ -76,12 +76,16 @@ public class PeonUtils {
                 switch (type) {
                     case "tavern" :
                         location = new Tavern(name);
+                        break;
                     case "farm" :
                         location = new Farm(name);
+                        break;
                     case "store":
                         location = new Store(name);
+                        break;
                     case "dungeon":
                         location = new Dungeon(name);
+                        break;
                 }
             }
             stmt.close();
@@ -117,6 +121,22 @@ public class PeonUtils {
             }
             stmt.close();
             return resultSet;
+        } catch (SQLException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+
+    public static Peon getPeon(String name) {
+        try {
+            String peonQuery = "SELECT *  FROM peons where NAME = \'" + name + "\';";
+            Statement stmt = PeonUtils.getSqlConnection().createStatement();
+            ResultSet results = stmt.executeQuery(peonQuery);
+            results.next();
+            int health = results.getInt("health");
+            int money = results.getInt("money");
+            String location = results.getString("location");
+            stmt.close();
+            return new Peon(name, health, money, location);
         } catch (SQLException e) {
             throw Throwables.propagate(e);
         }

@@ -12,4 +12,6 @@ public interface Location {
     String name();
 
     String type();
+
+    String handleCommmand(String input);
 }
